@@ -1,16 +1,14 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 34
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 29
-        versionCode 3
-        versionName "1.0.2"
+        targetSdk 34
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         //ambienti
@@ -28,9 +26,6 @@ android {
     buildTypes {
         release {
 
-        }
-        debug {
-            debuggable true
         }
     }
 }

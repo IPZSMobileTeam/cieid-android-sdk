@@ -1,5 +1,7 @@
 package it.ipzs.cieidsdk.sampleapp.internal
 
+import android.graphics.Bitmap
+import android.net.http.SslError
 import android.os.Bundle
 import android.util.Log
 import it.ipzs.cieidsdk.common.Callback
@@ -9,8 +11,7 @@ import android.text.InputType
 import android.widget.EditText
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import it.ipzs.cieidsdk.event.Event
@@ -62,7 +63,7 @@ class InternalActivity : AppCompatActivity(), Callback {
         }
 
         //inserire url service provider
-        webView.loadUrl("")
+        webView.loadUrl("https://iristest.rete.toscana.it/public/")
 
 
         webView.webViewClient = object : WebViewClient() {
@@ -76,6 +77,39 @@ class InternalActivity : AppCompatActivity(), Callback {
 
                 }
                 return super.shouldOverrideUrlLoading(view, url)
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+            }
+
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+            }
+
+            override fun onReceivedError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                error: WebResourceError?
+            ) {
+                super.onReceivedError(view, request, error)
+            }
+
+            override fun onReceivedHttpError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                errorResponse: WebResourceResponse?
+            ) {
+                super.onReceivedHttpError(view, request, errorResponse)
+            }
+
+            override fun onReceivedSslError(
+                view: WebView?,
+                handler: SslErrorHandler?,
+                error: SslError?
+            ) {
+                //super.onReceivedSslError(view, handler, error)
+                handler?.proceed()
             }
 
         }

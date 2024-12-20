@@ -5,10 +5,10 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.net.http.SslError
 import android.os.Bundle
 import android.text.TextUtils
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import it.ipzs.cieidsdk.sampleapp.R
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_internal.*
 
 class RedirectionActivity : AppCompatActivity() {
 
-    val appPackageName = "it.ipzs.cieid"
+    val appPackageName = "it.ipzs.cieid.collaudo"
     val className = "it.ipzs.cieid.BaseActivity"
     val URL = "URL"
     val ERROR = "ERROR"
@@ -39,17 +39,9 @@ class RedirectionActivity : AppCompatActivity() {
         }
 
         //inserire url service provider
-        webView.loadUrl("")
-
+        webView.loadUrl("https://salutesimplex.regione.liguria.it/sanita")
 
         webView.webViewClient = object : WebViewClient() {
-            override fun onPageFinished(view: WebView?, url: String?) {
-                super.onPageFinished(view, url)
-            }
-
-            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                super.onPageStarted(view, url, favicon)
-            }
 
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 // The webView is about to navigate to the specified host.
@@ -77,6 +69,39 @@ class RedirectionActivity : AppCompatActivity() {
 
                 }
                 return super.shouldOverrideUrlLoading(view, url)
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+            }
+
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+            }
+
+            override fun onReceivedError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                error: WebResourceError?
+            ) {
+                //super.onReceivedError(view, request, error)
+            }
+
+            override fun onReceivedHttpError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                errorResponse: WebResourceResponse?
+            ) {
+                //super.onReceivedHttpError(view, request, errorResponse)
+            }
+
+            override fun onReceivedSslError(
+                view: WebView?,
+                handler: SslErrorHandler?,
+                error: SslError?
+            ) {
+                //super.onReceivedSslError(view, handler, error)
+                //handler?.proceed()
             }
 
         }
